@@ -16,7 +16,7 @@ Filter::Undent - Un-indent heredoc strings automatically
 
 =cut
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
 
 =head1 SYNOPSIS
 
@@ -38,34 +38,35 @@ If you want to disable the unindent of the heredocs, simply:
 =cut
 
 FILTER_ONLY
-	quotelike => sub { s{<<}{undent <<}gs },
-    all => sub {
-		return unless $Filter::Undent::DEBUG;
-		print STDERR join '', map { "Filter::Undent> $_\n" } split /\n/, $_;
-	},
+    quotelike => sub {s{<<}{undent <<}gs},
+    all       => sub {
+        return unless $Filter::Undent::DEBUG;
+        print STDERR join '', map {"Filter::Undent> $_\n"} split /\n/, $_;
+    },
 ;
 
-=head1 FUNCTIONS
+=head1 EXPORTED FUNCTIONS
 
-=head2 undent "string to un-indent"
+=head2 undent
 
-This function does the actual work of unindenting.  It takes in a string,
-ignores any leading newlines, and if the first line of the provided string is
-indented with space or tab characters, it will remove the same whitespace from
-the beginning of all of the subsequent lines.  Any lines which are outdented
-from the first line, or is using a different combination of spaces or tabs,
-will not have its leading space removed.
+This function does the actual work of unindenting.  It returns the modified
+version of the input string, ignoring any leading newlines, and if the first
+line of the provided string is indented with space or tab characters, it will 
+remove the same whitespace from the beginning of all of the subsequent lines
+in the output.  Any lines which are outdented from the first line, or is using
+a different combination of spaces or tabs will not have its leading space
+removed.
 
 =cut
 
 sub undent ($) {
-	no warnings 'uninitialized';
-	if ($_[0] =~ m/^(\r?\n)*([ \t]+)/) {
-		my $i = $2;
-		return join '', map { s/^\Q$i\E/$1/g; $_ } grep { $_ ne '' }
-			split /(.*?\n)/, $_[0];
-	}
-	return $_[0];
+    no warnings 'uninitialized';
+    if ( $_[0] =~ m/^(\r?\n)*([ \t]+)/ ) {
+        my $i = $2;
+        return join '', map { s/^\Q$i\E/$1/g; $_ } grep { $_ ne '' }
+            split /(.*?\n)/, $_[0];
+    }
+    return $_[0];
 }
 
 =head1 AUTHOR
@@ -119,4 +120,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of Filter::Undent
+1;    # End of Filter::Undent

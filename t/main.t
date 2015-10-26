@@ -16,17 +16,17 @@ OUTDENTED
 EOF
 
 is(
-	$str,
-	"\nFIRST\n    INDENTED_RELATIVE\nOUTDENTED\n",
-	'undented successfully via heredoc w/spaces'
+    $str,
+    "\nFIRST\n    INDENTED_RELATIVE\nOUTDENTED\n",
+    'undented successfully via heredoc w/spaces'
 );
 
 $str = undent "\tFIRST\n\t\tINDENTED_RELATIVE\nOUTDENTED";
 
 is(
-	$str,
-	"FIRST\n\tINDENTED_RELATIVE\nOUTDENTED",
-	'undented successfully via function w/tabs'
+    $str,
+    "FIRST\n\tINDENTED_RELATIVE\nOUTDENTED",
+    'undented successfully via function w/tabs'
 );
 
 no Filter::Undent;
@@ -39,7 +39,7 @@ OUTDENTED
 EOF
 
 is(
-	$str,
-	"\n    FIRST\n        INDENTED_RELATIVE\nOUTDENTED\n",
-	'not undented when filter is disabled'
+    $str,
+    "\n    FIRST\n        INDENTED_RELATIVE\nOUTDENTED\n",
+    'not undented when filter is disabled'
 );
