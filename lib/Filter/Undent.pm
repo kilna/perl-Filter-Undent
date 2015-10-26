@@ -16,7 +16,7 @@ Filter::Undent - Un-indent heredoc strings automatically
 
 =cut
 
-our $VERSION = '1.0.2';
+our $VERSION = '1.0.3';
 
 =head1 SYNOPSIS
 
@@ -38,7 +38,7 @@ If you want to disable the unindent of the heredocs, simply:
 =cut
 
 FILTER_ONLY
-    quotelike => sub {s{<<}{undent <<}gs},
+    quotelike => sub {s{^<<}{undent <<}gs},
     all       => sub {
         return unless $Filter::Undent::DEBUG;
         print STDERR join '', map {"Filter::Undent> $_\n"} split /\n/, $_;

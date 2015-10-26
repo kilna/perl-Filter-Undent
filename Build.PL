@@ -8,9 +8,8 @@ my $builder = Module::Build->new(
     license             => 'perl',
     dist_author         => q{Anthony Kilna <anthony@kilna.com>},
     dist_version_from   => 'lib/Filter/Undent.pm',
-    build_requires => {
-        'Test::More' => 0,
-    },
+    configure_requires  => { 'Module::Build' => 0.40 },
+    build_requires      => { 'Test::More' => 0 },
     requires => {
         'perl'           => 5.006,
         'Filter::Simple' => 0,

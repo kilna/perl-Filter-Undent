@@ -6,3 +6,4 @@ README
 t/main.t
 Makefile.PL
 META.yml
+META.json
